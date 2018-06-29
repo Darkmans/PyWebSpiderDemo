@@ -6,3 +6,5 @@
 
 运行后保存到本地
 ![image](https://github.com/Darkmans/PyWebSpiderDemo/blob/master/images/maoyan_results.png)
+
+2.agency.py 抓取西刺高匿代理
