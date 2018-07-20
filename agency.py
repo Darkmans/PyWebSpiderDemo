@@ -2,6 +2,7 @@ import requests
 import re
 import time
 import random
+import telnetlib
 
 keys = [
     'Mozilla/5.0 (Linux; Android 4.1.1; Nexus 7 Build/JRO03D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Safari/535.19',
@@ -21,7 +22,7 @@ headers = {
 }
 
 # 批量获取高匿代理ip
-def get_agency_ip(max_page_number):
+def getXCProxyIp(max_page_number):
     for i in range(1, max_page_number + 1):
         page_number = i
         init_url = 'http://www.xicidaili.com/nn/' + str(i)
@@ -38,12 +39,32 @@ def get_agency_ip(max_page_number):
         for i in range(ip_number):
             total_ip = agency_ip[i] + ':' + agency_port[i]
             print(total_ip)
+            verifyProxyIP(agency_ip[i], agency_port[i])
             time.sleep(1)
         print('第 %d 页代理获取完毕！' % page_number)
         print('------------------------------------')
         time.sleep(2)
 
+# 验证获取到的代理IP是否可用
+def verifyProxyIP(verify_ip, verify_ip_port):
+    print('正在验证此代理IP是否可用......')
+    try:
+        telnetlib.Telnet(verify_ip, verify_ip_port, timeout=10)
+    except:
+        print('此代理IP不可用')
+        print('-------------------------')
+    else:
+        print('此代理IP可用')
+        print('-------------------------')
+        available_ip = verify_ip + ':' + verify_ip_port
+        saveProxyIP(available_ip)
+
+# 将可用的代理IP保存到本地
+def saveProxyIP(available_ip):
+    with open(r'C:\Users\liaofan\Desktop\XCProxy.txt', 'w') as f:
+        f.write(available_ip + '\n')
+
 if __name__ == '__main__':
     print('---------- 高匿代理ip获取 ----------')
-    max_page_number = int(input('请输入您想获取的页数: '))
-    get_agency_ip(max_page_number)
+    page= int(input('请输入您想获取的页数: '))
+    getXCProxyIp(page)
