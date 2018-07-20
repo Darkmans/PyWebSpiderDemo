@@ -14,8 +14,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-USER_NAME = '零度非安全'
-USER_PASSWD = 'jxycsgliaofan1994'
+USER_NAME = '你的论坛用户名'
+USER_PASSWD = '你的论坛用户密码'
 BORDER = 18
 
 class LoginFishc:
